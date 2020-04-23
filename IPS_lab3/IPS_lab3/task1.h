@@ -5,8 +5,6 @@
 #include <cilk/cilk.h>
 #include <cilk/reducer_opadd.h>
 
-
-
 namespace TASK1 {
 	// количество строк в исходной квадратной матрице
 	const int MATRIX_SIZE = 1500;

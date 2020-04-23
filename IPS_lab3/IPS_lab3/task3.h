@@ -34,6 +34,7 @@ namespace TASK3
 	/// последний столбей матрицы - значения правых частей уравнений
 	/// rows - количество строк в исходной матрице
 	/// result - массив ответов СЛАУ
+	/// duration - время работы прямого хода
 	double SerialGaussMethod(double **matrix, const int rows, double* result)
 	{
 		int k;
@@ -71,14 +72,19 @@ namespace TASK3
 		return duration;
 	}
 
+	/// Функция для решения СЛАУ методом Гаусса с использованием параллелизма
+	/// matrix - исходная матрица коэффиициентов уравнений, входящих в СЛАУ,
+	/// последний столбей матрицы - значения правых частей уравнений
+	/// rows - количество строк в исходной матрице
+	/// result - массив ответов СЛАУ
+	/// duration - время работы прямого хода
 	double ParallelGaussMethod(double **matrix, const int rows, double* result)
 	{
 		int k;		
 		// прямой ход метода Гаусса
-		auto start = clock() / 1000.0;
+		auto start = clock() / 1000.0; 
 		for (k = 0; k < rows; ++k)
-		{
-			//
+		{			
 			for (int i = k + 1; i < rows; ++i)
 			{
 				double koef = -matrix[i][k] / matrix[k][k];
@@ -90,6 +96,7 @@ namespace TASK3
 			}
 		}
 		auto end = clock() / 1000.0;
+		// Время работы прямого метода Гаусса
 		auto duration = end - start;
 		// обратный ход метода Гаусса
 		result[rows - 1] = matrix[rows - 1][rows] / matrix[rows - 1][rows - 1];
@@ -101,7 +108,6 @@ namespace TASK3
 			{
 				result[k] -= matrix[k][j] * result[j];
 			}
-
 			result[k] /= matrix[k][k];
 		}
 		return duration;
@@ -118,15 +124,16 @@ namespace TASK3
 
 		// инициализация матрицы
 		InitMatrix(test_matrix);
-
+		// Вызов функции параллельного метода Гаусса и получение времени выполнения прямого хода
 		auto duration = ParallelGaussMethod(test_matrix, MATRIX_SIZE, result);
-
+		// Очищение памяти
 		for (auto i = 0; i < MATRIX_SIZE; ++i)
 		{
 			delete[]test_matrix[i];
 		}
 
 		std::cout << "Solution" << std::endl;
+		// Вывод результатов
 		for (auto i = 0; i < MATRIX_SIZE; ++i)
 		{
 			std::cout << "x(" << i << ") = " << result[i] << std::endl;

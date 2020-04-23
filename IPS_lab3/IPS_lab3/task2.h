@@ -34,6 +34,7 @@ namespace TASK2
 	/// последний столбей матрицы - значения правых частей уравнений
 	/// rows - количество строк в исходной матрице
 	/// result - массив ответов СЛАУ
+	/// duration - время работы прямого хода
 	double SerialGaussMethod(double **matrix, const int rows, double* result)
 	{
 		int k;
@@ -83,14 +84,14 @@ namespace TASK2
 
 		// инициализация матрицы
 		InitMatrix(test_matrix);
-
+		// вызов функции последовательного метода Гаусса и получение времени выполнения прямого хода
 		auto duration = SerialGaussMethod(test_matrix, MATRIX_SIZE, result);
-
+		// Очищение памяти
 		for (auto i = 0; i < MATRIX_SIZE; ++i)
 		{
 			delete[]test_matrix[i];
 		}
-
+		// Вывод результатов
 		std::cout << "Solution" << std::endl;
 		for (auto i = 0; i < MATRIX_SIZE; ++i)
 		{

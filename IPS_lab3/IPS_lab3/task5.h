@@ -108,6 +108,7 @@ namespace TASK5
 		return duration;
 	}
 
+	// Запуск с тестовой матрицей
 	void run_task5_test_matrix()
 	{
 		srand((unsigned)time(0));
@@ -147,7 +148,8 @@ namespace TASK5
 		std::cout << "Duration serial = " << durationSerial << std::endl
 			<< "Duration parallel = " << durationParallel << std::endl;
 	}
-
+	 
+	// Запуск с размером матрицы MATRIX_SIZE
 	void run_task5_MATRIX_SIZE()
 	{
 		srand((unsigned)time(0));
